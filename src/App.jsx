@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 import { ProgressProvider } from './context/ProgressContext'
 import Sidebar from './components/Sidebar'
+import { MenuIcon } from './components/Icons'
 import Home from './pages/Home'
 import ModulePage from './pages/ModulePage'
 import Cheatsheet from './pages/Cheatsheet'
@@ -32,9 +33,9 @@ function App() {
         <div className={`main-area ${sidebarOpen ? '' : 'expanded'}`}>
           <header className="topbar">
             <button className="hamburger" onClick={() => setSidebarOpen(!sidebarOpen)}>
-              {sidebarOpen ? '✕' : '☰'}
+              <MenuIcon size={20} />
             </button>
-            <span className="topbar-title">Fundamental</span>
+            <Link to="/" className="topbar-title">Fundamental</Link>
           </header>
           <main className="content">
             <Routes>

@@ -8,38 +8,55 @@
 
 :root {
   --sidebar-width: 280px;
-  --topbar-height: 56px;
+  --topbar-height: 60px;
 
   --bg: #f8fafc;
   --bg-card: #ffffff;
-  --bg-sidebar: #1e293b;
+  --bg-sidebar: #0f172a;
   --bg-code: #1e293b;
-  --text: #1e293b;
+  --text: #0f172a;
   --text-secondary: #64748b;
-  --text-sidebar: #cbd5e1;
+  --text-tertiary: #94a3b8;
+  --text-sidebar: #94a3b8;
   --text-sidebar-active: #ffffff;
   --border: #e2e8f0;
+  --border-light: #f1f5f9;
   --primary: #6366f1;
   --primary-hover: #4f46e5;
   --primary-light: #eef2ff;
+  --primary-subtle: rgba(99, 102, 241, 0.08);
   --success: #22c55e;
-  --warning: #f59e0b;
+  --success-light: #f0fdf4;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark {
-  --bg: #0f172a;
-  --bg-card: #1e293b;
-  --bg-sidebar: #0f172a;
-  --bg-code: #0f172a;
+  --bg: #0b1121;
+  --bg-card: #131c31;
+  --bg-sidebar: #080e1a;
+  --bg-code: #080e1a;
   --text: #e2e8f0;
   --text-secondary: #94a3b8;
-  --text-sidebar: #94a3b8;
-  --text-sidebar-active: #ffffff;
-  --border: #334155;
+  --text-tertiary: #64748b;
+  --text-sidebar: #64748b;
+  --text-sidebar-active: #e2e8f0;
+  --border: #1e293b;
+  --border-light: #1a2332;
   --primary: #818cf8;
   --primary-hover: #6366f1;
   --primary-light: #1e1b4b;
+  --primary-subtle: rgba(129, 140, 248, 0.08);
   --success: #4ade80;
+  --success-light: #052e16;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 html {
@@ -53,14 +70,17 @@ body {
   color: var(--text);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
   color: var(--primary);
   text-decoration: none;
+  transition: color var(--transition);
 }
+
 a:hover {
-  text-decoration: underline;
+  color: var(--primary-hover);
 }
 
 img {
@@ -72,7 +92,6 @@ img {
   color: white;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -84,30 +103,37 @@ img {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: var(--text-tertiary);
 }
 
-/* Markdown content styles */
+/* ========== Markdown ========== */
+
+.markdown {
+  max-width: 100%;
+}
+
 .markdown h1 {
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 1rem;
   color: var(--text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
 }
 
 .markdown h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--border);
   color: var(--text);
+  line-height: 1.4;
 }
 
 .markdown h3 {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
   margin-top: 2rem;
   margin-bottom: 0.5rem;
@@ -119,25 +145,28 @@ img {
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.25rem;
+  color: var(--text);
 }
 
 .markdown p {
   margin-bottom: 1rem;
   color: var(--text);
+  line-height: 1.8;
 }
 
 .markdown ul, .markdown ol {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   padding-left: 1.5rem;
 }
 
 .markdown li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
+  color: var(--text);
 }
 
 .markdown li > ul, .markdown li > ol {
   margin-bottom: 0;
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
 }
 
 .markdown strong {
@@ -146,34 +175,38 @@ img {
 }
 
 .markdown code {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 0.875em;
-  background: var(--bg-code);
-  padding: 0.15em 0.4em;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.85em;
+  background: var(--primary-subtle);
+  padding: 0.2em 0.45em;
   border-radius: 4px;
   color: var(--primary);
+  font-weight: 500;
 }
 
 .markdown pre {
   margin-bottom: 1.25rem;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .markdown pre code {
   background: none;
   padding: 0;
   color: inherit;
+  font-weight: 400;
 }
 
 .markdown blockquote {
   border-left: 4px solid var(--primary);
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
   background: var(--primary-light);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
   color: var(--text);
+  box-shadow: var(--shadow-sm);
 }
 
 .markdown blockquote p {
@@ -187,47 +220,46 @@ img {
 .markdown hr {
   border: none;
   border-top: 2px solid var(--border);
-  margin: 2rem 0;
+  margin: 2.5rem 0;
 }
 
 .markdown table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-bottom: 1.25rem;
   font-size: 0.9rem;
-}
-
-.markdown th,
-.markdown td {
+  border-radius: var(--radius-md);
+  overflow: hidden;
   border: 1px solid var(--border);
-  padding: 0.5rem 0.75rem;
-  text-align: left;
+  box-shadow: var(--shadow-sm);
 }
 
 .markdown th {
   background: var(--primary-light);
   font-weight: 600;
   color: var(--text);
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .markdown td {
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--border-light);
   color: var(--text);
+}
+
+.markdown tr:last-child td {
+  border-bottom: none;
 }
 
 .markdown tr:nth-child(even) td {
   background: var(--bg);
 }
 
-.markdown pre div {
-  border-radius: 8px !important;
-}
-
-@media (max-width: 768px) {
-  .markdown table {
-    font-size: 0.8rem;
-  }
-  .markdown th,
-  .markdown td {
-    padding: 0.35rem 0.5rem;
-  }
+.markdown tr:hover td {
+  background: var(--primary-subtle);
 }

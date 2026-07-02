@@ -1,17 +1,5 @@
 import { useState, useEffect } from 'react'
-
-const SECTION_TITLES = [
-  'Web Fundamental',
-  'JavaScript',
-  'React',
-  'Laravel',
-  'Database',
-  'CS Fundamental',
-  'HTTP Status Codes',
-  'SQL Yang Sering Ditanyain',
-  'Pertanyaan "Soft Skill" + Teknis',
-  'Tips Interview'
-]
+import { BookOpenIcon } from '../components/Icons'
 
 export default function Cheatsheet() {
   const [content, setContent] = useState('')
@@ -40,8 +28,11 @@ export default function Cheatsheet() {
 
   return (
     <div className="cheatsheet-page">
-      <h1>📝 Cheatsheet</h1>
-      <p>Ringkasan 1 kalimat per konsep — hafalkan H-1 interview!</p>
+      <div className="cheatsheet-header">
+        <BookOpenIcon size={28} />
+        <h1>Cheatsheet</h1>
+      </div>
+      <p className="cheatsheet-subtitle">Ringkasan 1 kalimat per konsep — hafalkan H-1 interview!</p>
 
       {sections.map((section, idx) => {
         const lines = section.trim().split('\n')
@@ -49,8 +40,6 @@ export default function Cheatsheet() {
         const rest = lines.slice(1).join('\n')
 
         const items = []
-        let currentCategory = ''
-
         const itemLines = rest.split('\n')
         for (let i = 0; i < itemLines.length; i++) {
           const line = itemLines[i].trim()

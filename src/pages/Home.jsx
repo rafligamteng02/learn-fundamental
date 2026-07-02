@@ -1,9 +1,25 @@
 import { Link } from 'react-router-dom'
 import { useProgress } from '../context/ProgressContext'
 import { modules } from '../modules'
+import {
+  BookOpenIcon, StarIcon, CheckIcon, CircleIcon,
+  GlobeIcon, CodeIcon, AtomIcon, ServerIcon,
+  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon
+} from '../components/Icons'
+
+const iconMap = {
+  globe: GlobeIcon,
+  code: CodeIcon,
+  atom: AtomIcon,
+  server: ServerIcon,
+  database: DatabaseIcon,
+  cpu: CpuIcon,
+  link: LinkIcon,
+  file: FileTextIcon,
+}
 
 export default function Home() {
-  const { completed, toggleModule } = useProgress()
+  const { completed } = useProgress()
 
   const totalModules = modules.length
   const completedCount = completed.length
@@ -12,6 +28,9 @@ export default function Home() {
   return (
     <div className="home">
       <div className="home-hero">
+        <div className="hero-icon">
+          <BookOpenIcon size={32} />
+        </div>
         <h1>
           Fullstack <span>Interview</span> Prep
         </h1>
@@ -36,36 +55,21 @@ export default function Home() {
       </div>
 
       {progress > 0 && (
-        <div style={{
-          height: '8px',
-          background: 'var(--border)',
-          borderRadius: '4px',
-          marginBottom: '2rem',
-          overflow: 'hidden'
-        }}>
-          <div style={{
-            height: '100%',
-            width: `${progress}%`,
-            background: 'var(--primary)',
-            borderRadius: '4px',
-            transition: 'width 0.5s ease'
-          }} />
+        <div className="progress-bar-wrapper">
+          <div className="progress-bar-track">
+            <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
+          </div>
         </div>
       )}
 
-      <h2 style={{
-        fontSize: '1.25rem',
-        fontWeight: 700,
-        marginBottom: '1rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem'
-      }}>
-        📚 Modul Belajar
+      <h2 className="section-title">
+        <BookOpenIcon size={20} />
+        Modul Belajar
       </h2>
 
       <div className="module-grid">
         {modules.map(m => {
+          const IconComp = iconMap[m.icon]
           const done = completed.includes(m.id)
           return (
             <Link
@@ -73,15 +77,23 @@ export default function Home() {
               to={`/module/${m.id}`}
               className={`module-card ${done ? 'completed' : ''}`}
             >
-              <div className="module-card-icon">{m.icon}</div>
+              <div className="module-card-icon">
+                {IconComp && <IconComp size={22} />}
+              </div>
               <div className="module-card-body">
                 <div className="module-card-title">{m.id}. {m.title}</div>
                 <div className="module-card-desc">{m.desc}</div>
                 <div className="module-card-status">
                   {done ? (
-                    <span className="done">✓ Selesai</span>
+                    <>
+                      <CheckIcon size={14} />
+                      <span>Selesai</span>
+                    </>
                   ) : (
-                    <span>○ Belum dipelajari</span>
+                    <>
+                      <CircleIcon size={14} />
+                      <span>Belum dipelajari</span>
+                    </>
                   )}
                 </div>
               </div>
@@ -90,22 +102,12 @@ export default function Home() {
         })}
       </div>
 
-      <div style={{
-        marginTop: '3rem',
-        padding: '1.5rem',
-        background: 'var(--bg-card)',
-        border: '1px solid var(--border)',
-        borderRadius: '12px'
-      }}>
-        <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.75rem' }}>
-          📖 Cara Belajar
-        </h3>
-        <ol style={{
-          paddingLeft: '1.25rem',
-          color: 'var(--text-secondary)',
-          fontSize: '0.9rem',
-          lineHeight: 2
-        }}>
+      <div className="guide-card">
+        <div className="guide-card-header">
+          <StarIcon size={20} />
+          <h3>Cara Belajar</h3>
+        </div>
+        <ol className="guide-list">
           <li>Baca modul secara urut dari <strong>01</strong> sampai <strong>08</strong></li>
           <li>Setelah baca, jawab pertanyaan interview di akhir modul dengan suara keras</li>
           <li>Centang <strong>"Tandai Selesai"</strong> kalau sudah paham</li>

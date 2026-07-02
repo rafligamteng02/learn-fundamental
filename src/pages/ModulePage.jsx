@@ -6,7 +6,23 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { modules } from '../modules'
 import { useProgress } from '../context/ProgressContext'
+import { ChevronLeftIcon, ChevronRightIcon, CheckIcon } from '../components/Icons'
+import {
+  GlobeIcon, CodeIcon, AtomIcon, ServerIcon,
+  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon
+} from '../components/Icons'
 import QAItem from '../components/QAItem'
+
+const iconMap = {
+  globe: GlobeIcon,
+  code: CodeIcon,
+  atom: AtomIcon,
+  server: ServerIcon,
+  database: DatabaseIcon,
+  cpu: CpuIcon,
+  link: LinkIcon,
+  file: FileTextIcon,
+}
 
 function extractQA(markdown) {
   const lines = markdown.split('\n')
@@ -82,6 +98,7 @@ export default function ModulePage() {
   const currentIndex = modules.findIndex(m => m.id === id)
   const prevModule = currentIndex > 0 ? modules[currentIndex - 1] : null
   const nextModule = currentIndex < modules.length - 1 ? modules[currentIndex + 1] : null
+  const IconComp = module ? iconMap[module.icon] : null
 
   useEffect(() => {
     if (!module) {
@@ -151,7 +168,11 @@ export default function ModulePage() {
   return (
     <div className="module-page">
       <div className="module-header">
-        <span className="module-header-icon">{module.icon}</span>
+        {IconComp && (
+          <div className="module-header-icon">
+            <IconComp size={28} />
+          </div>
+        )}
         <h1>{module.id}. {module.title}</h1>
       </div>
 
@@ -165,39 +186,40 @@ export default function ModulePage() {
       </div>
 
       {qas.length > 0 && (
-        <div style={{ marginTop: '2.5rem', paddingTop: '2rem', borderTop: '2px solid var(--border)' }}>
-          <h2 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '1rem' }}>
-            ❓ Pertanyaan Interview
-          </h2>
+        <div className="qa-section">
+          <h2 className="qa-section-title">Pertanyaan Interview</h2>
           {qas.map((qa, i) => (
             <QAItem key={i} question={qa.question} answer={qa.answer} />
           ))}
         </div>
       )}
 
-      <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <div className="module-actions">
         <button
-          className={`module-progress-btn ${isCompleted(id) ? 'done' : ''}`}
+          className={`module-btn ${isCompleted(id) ? 'done' : ''}`}
           onClick={() => toggleModule(id)}
         >
-          {isCompleted(id) ? '✓ Sudah Selesai' : '○ Tandai Selesai'}
+          <CheckIcon size={18} />
+          {isCompleted(id) ? 'Sudah Selesai' : 'Tandai Selesai'}
         </button>
       </div>
 
       <div className="module-nav">
         {prevModule ? (
-          <Link to={`/module/${prevModule.id}`}>
-            ← {prevModule.id}. {prevModule.title}
+          <Link to={`/module/${prevModule.id}`} className="nav-link">
+            <ChevronLeftIcon size={18} />
+            <span>{prevModule.id}. {prevModule.title}</span>
           </Link>
         ) : (
-          <span className="nav-disabled">← Sebelumnya</span>
+          <span />
         )}
         {nextModule ? (
-          <Link to={`/module/${nextModule.id}`}>
-            {nextModule.id}. {nextModule.title} →
+          <Link to={`/module/${nextModule.id}`} className="nav-link">
+            <span>{nextModule.id}. {nextModule.title}</span>
+            <ChevronRightIcon size={18} />
           </Link>
         ) : (
-          <span className="nav-disabled">Selanjutnya →</span>
+          <span />
         )}
       </div>
     </div>
