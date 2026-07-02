@@ -5,7 +5,7 @@ function makeTester(userCode, fnName, tests) {
     const fn = new Function('console', userCode + `\nreturn ${fnName};`)
     const userFn = fn({ log: mockLog })
     const results = tests.map(t => {
-      const actual = userFn(t.input)
+      const actual = Array.isArray(t.input) ? userFn(...t.input) : userFn(t.input)
       const pass = JSON.stringify(actual) === JSON.stringify(t.expected)
       return { ...t, actual, pass }
     })
