@@ -493,6 +493,170 @@
   animation: fadeIn 0.35s ease;
 }
 
+/* ========== Markdown Content ========== */
+
+.markdown h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border);
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.markdown h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 1.5rem 0 0.5rem;
+  color: var(--text);
+}
+
+.markdown h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.4rem;
+  color: var(--text-secondary);
+}
+
+.markdown p {
+  margin: 0.6rem 0;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.markdown strong {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.markdown a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.markdown a:hover {
+  color: var(--primary-hover);
+}
+
+/* Lists */
+.markdown ul,
+.markdown ol {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+  line-height: 1.8;
+}
+
+.markdown li {
+  margin-bottom: 0.2rem;
+}
+
+.markdown li strong {
+  color: var(--text);
+}
+
+/* Inline Code */
+.markdown code:not([class*="language"]) {
+  background: var(--bg-code);
+  color: #e2e8f0;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Code Block (pre wrapper around syntax highlighter) */
+.markdown pre {
+  margin: 1rem 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Blockquote — all styled as info callouts */
+.markdown blockquote {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--primary);
+  background: var(--primary-subtle);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.markdown blockquote p {
+  margin: 0.2rem 0;
+}
+
+.markdown blockquote strong {
+  color: var(--primary);
+}
+
+/* Tables */
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.markdown th {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.markdown td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.markdown tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown tr:nth-child(even) td {
+  background: var(--primary-subtle);
+}
+
+.markdown tr:hover td {
+  background: color-mix(in srgb, var(--primary) 6%, transparent);
+}
+
+/* Horizontal Rule */
+.markdown hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 2rem 0;
+}
+
+/* Images */
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  margin: 1rem 0;
+  box-shadow: var(--shadow-sm);
+}
+
+/* First heading after module header shouldn't have big top margin */
+.markdown h2:first-child {
+  margin-top: 0;
+}
+
 .module-header {
   display: flex;
   align-items: center;
