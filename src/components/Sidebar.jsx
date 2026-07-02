@@ -25,51 +25,54 @@ export default function Sidebar({ isOpen, onToggle, darkMode, onToggleDark }) {
 
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="sidebar-header">
-        <div className="sidebar-logo">
-          Fund<span>amental</span>
+      <div className="sidebar-backdrop" onClick={onToggle} />
+      <div className="sidebar-inner">
+        <div className="sidebar-header">
+          <div className="sidebar-logo">
+            Fund<span>amental</span>
+          </div>
+          <button className="sidebar-close" onClick={onToggle}>
+            <CloseIcon size={18} />
+          </button>
         </div>
-        <button className="sidebar-close" onClick={onToggle}>
-          <CloseIcon size={18} />
-        </button>
-      </div>
 
-      <nav className="sidebar-nav">
-        <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-          <HomeIcon size={20} />
-          <span className="nav-title">Beranda</span>
-        </NavLink>
+        <nav className="sidebar-nav">
+          <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+            <HomeIcon size={20} />
+            <span className="nav-title">Beranda</span>
+          </NavLink>
 
-        <div className="sidebar-label">Modul Belajar</div>
+          <div className="sidebar-label">Modul Belajar</div>
 
-        {modules.map(m => {
-          const IconComp = iconMap[m.icon]
-          return (
-            <NavLink
-              key={m.id}
-              to={m.route || `/module/${m.id}`}
-              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-            >
-              {IconComp && <IconComp size={20} />}
-              <span className="nav-title">{m.id}. {m.title}</span>
-              {isCompleted(m.id) && <CheckIcon size={14} />}
-            </NavLink>
-          )
-        })}
+          {modules.map(m => {
+            const IconComp = iconMap[m.icon]
+            return (
+              <NavLink
+                key={m.id}
+                to={m.route || `/module/${m.id}`}
+                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              >
+                {IconComp && <IconComp size={20} />}
+                <span className="nav-title">{m.id}. {m.title}</span>
+                {isCompleted(m.id) && <CheckIcon size={14} />}
+              </NavLink>
+            )
+          })}
 
-        <div className="sidebar-label">Lainnya</div>
+          <div className="sidebar-label">Lainnya</div>
 
-        <NavLink to="/cheatsheet" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-          <BookOpenIcon size={20} />
-          <span className="nav-title">Cheatsheet</span>
-        </NavLink>
-      </nav>
+          <NavLink to="/cheatsheet" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+            <BookOpenIcon size={20} />
+            <span className="nav-title">Cheatsheet</span>
+          </NavLink>
+        </nav>
 
-      <div className="sidebar-footer">
-        <button className="nav-item" onClick={onToggleDark}>
-          {darkMode ? <SunIcon size={20} /> : <MoonIcon size={20} />}
-          <span className="nav-title">{darkMode ? 'Mode Terang' : 'Mode Gelap'}</span>
-        </button>
+        <div className="sidebar-footer">
+          <button className="nav-item" onClick={onToggleDark}>
+            {darkMode ? <SunIcon size={20} /> : <MoonIcon size={20} />}
+            <span className="nav-title">{darkMode ? 'Mode Terang' : 'Mode Gelap'}</span>
+          </button>
+        </div>
       </div>
     </aside>
   )

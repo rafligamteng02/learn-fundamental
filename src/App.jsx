@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { ProgressProvider } from './context/ProgressContext'
+import { ToastProvider } from './context/ToastContext'
 import Sidebar from './components/Sidebar'
 import { MenuIcon } from './components/Icons'
 import Home from './pages/Home'
@@ -24,6 +25,7 @@ function App() {
 
   return (
     <ProgressProvider>
+      <ToastProvider>
       <div className={`app ${darkMode ? 'dark' : ''}`}>
         <Sidebar
           isOpen={sidebarOpen}
@@ -48,6 +50,7 @@ function App() {
           </main>
         </div>
       </div>
+      </ToastProvider>
     </ProgressProvider>
   )
 }

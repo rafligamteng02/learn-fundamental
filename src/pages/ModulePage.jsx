@@ -16,6 +16,7 @@ import QAItem from '../components/QAItem'
 import Quiz from '../components/Quiz'
 import { takeaways } from '../data/takeaways'
 import { quizzes } from '../data/quizzes'
+import { useToast } from '../context/ToastContext'
 
 const iconMap = {
   globe: GlobeIcon,
@@ -95,6 +96,7 @@ function extractQA(markdown) {
 export default function ModulePage() {
   const { id } = useParams()
   const { isCompleted, toggleModule, saveQuizScore, getQuizScore } = useProgress()
+  const { showToast } = useToast()
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -132,9 +134,20 @@ export default function ModulePage() {
 
   if (loading) {
     return (
-      <div className="loading">
-        <div className="spinner" />
-        Memuat modul...
+      <div className="module-page">
+        <div className="skeleton-header">
+          <div className="skeleton skeleton-icon" />
+          <div className="skeleton skeleton-title" />
+        </div>
+        <div className="skeleton-content">
+          <div className="skeleton skeleton-line w-75" />
+          <div className="skeleton skeleton-line w-60" />
+          <div className="skeleton skeleton-line w-90" />
+          <div className="skeleton skeleton-line w-50" />
+          <div className="skeleton skeleton-code" />
+          <div className="skeleton skeleton-line w-80" />
+          <div className="skeleton skeleton-line w-40" />
+        </div>
       </div>
     )
   }
@@ -227,6 +240,14 @@ export default function ModulePage() {
             onComplete={(correct, total) => {
               saveQuizScore(id, correct, total)
               if (!isCompleted(id)) toggleModule(id)
+              const pct = Math.round((correct / total) * 100)
+              if (pct === 100) {
+                showToast('🎉 Kuis sempurna! Semua jawaban benar!', 'success', 5000)
+              } else if (pct >= 60) {
+                showToast(`Kuis selesai! ${correct}/${total} benar`, 'success')
+              } else {
+                showToast(`Kuis selesai — ${correct}/${total} benar. Ayo coba lagi!`, 'info', 4000)
+              }
             }}
           />
         </div>
@@ -235,7 +256,10 @@ export default function ModulePage() {
       <div className="module-actions">
         <button
           className={`module-btn ${isCompleted(id) ? 'done' : ''}`}
-          onClick={() => toggleModule(id)}
+          onClick={() => {
+            toggleModule(id)
+            showToast(isCompleted(id) ? 'Modul ditandai belum selesai' : 'Modul selesai!', 'success')
+          }}
         >
           <CheckIcon size={18} />
           {isCompleted(id) ? 'Sudah Selesai' : 'Tandai Selesai'}
