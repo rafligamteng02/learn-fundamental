@@ -54,5 +54,12 @@ export const modules = [
     icon: 'file',
     file: '08-quick-cheatsheet.md',
     desc: 'Ringkasan 1 halaman per topik + tips interview'
+  },
+  {
+    id: '09',
+    title: 'Live Coding',
+    icon: 'code',
+    file: '09-live-coding.md',
+    desc: 'Soal API & Function — latihan live interview'
   }
 ]
