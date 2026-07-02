@@ -13,6 +13,9 @@ import {
   TerminalIcon
 } from '../components/Icons'
 import QAItem from '../components/QAItem'
+import Quiz from '../components/Quiz'
+import { takeaways } from '../data/takeaways'
+import { quizzes } from '../data/quizzes'
 
 const iconMap = {
   globe: GlobeIcon,
@@ -91,7 +94,7 @@ function extractQA(markdown) {
 
 export default function ModulePage() {
   const { id } = useParams()
-  const { isCompleted, toggleModule } = useProgress()
+  const { isCompleted, toggleModule, saveQuizScore, getQuizScore } = useProgress()
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -193,6 +196,39 @@ export default function ModulePage() {
           {qas.map((qa, i) => (
             <QAItem key={i} question={qa.question} answer={qa.answer} />
           ))}
+        </div>
+      )}
+
+      {/* Key Takeaways */}
+      {takeaways[id] && (
+        <div className="takeaways">
+          <h2 className="takeaways-title">Key Takeaways</h2>
+          <ul className="takeaways-list">
+            {takeaways[id].map((t, i) => (
+              <li key={i}>{t}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Quiz */}
+      {quizzes[id] && (
+        <div className="module-quiz">
+          <h2 className="quiz-section-title">
+            Kuis {module.id}. {module.title}
+            {getQuizScore(id) && (
+              <span className="quiz-score-badge">
+                {getQuizScore(id).correct}/{getQuizScore(id).total}
+              </span>
+            )}
+          </h2>
+          <Quiz
+            questions={quizzes[id]}
+            onComplete={(correct, total) => {
+              saveQuizScore(id, correct, total)
+              if (!isCompleted(id)) toggleModule(id)
+            }}
+          />
         </div>
       )}
 

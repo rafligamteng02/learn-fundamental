@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 
 const ProgressContext = createContext()
 
@@ -8,9 +8,18 @@ export function ProgressProvider({ children }) {
     return saved ? JSON.parse(saved) : []
   })
 
+  const [quizScores, setQuizScores] = useState(() => {
+    const saved = localStorage.getItem('fundamental-quiz-scores')
+    return saved ? JSON.parse(saved) : {}
+  })
+
   useEffect(() => {
     localStorage.setItem('fundamental-progress', JSON.stringify(completed))
   }, [completed])
+
+  useEffect(() => {
+    localStorage.setItem('fundamental-quiz-scores', JSON.stringify(quizScores))
+  }, [quizScores])
 
   const toggleModule = (id) => {
     setCompleted(prev =>
@@ -22,8 +31,16 @@ export function ProgressProvider({ children }) {
 
   const isCompleted = (id) => completed.includes(id)
 
+  const saveQuizScore = useCallback((moduleId, correct, total) => {
+    setQuizScores(prev => ({ ...prev, [moduleId]: { correct, total, date: new Date().toISOString() } }))
+  }, [])
+
+  const getQuizScore = useCallback((moduleId) => {
+    return quizScores[moduleId] || null
+  }, [quizScores])
+
   return (
-    <ProgressContext.Provider value={{ completed, toggleModule, isCompleted }}>
+    <ProgressContext.Provider value={{ completed, toggleModule, isCompleted, quizScores, saveQuizScore, getQuizScore }}>
       {children}
     </ProgressContext.Provider>
   )
