@@ -110,7 +110,7 @@ export default function ModulePage() {
     setLoading(true)
     setError(null)
 
-    fetch(`/modules/${module.file}`)
+    fetch(`${import.meta.env.BASE_URL}modules/${module.file}`)
       .then(res => {
         if (!res.ok) throw new Error('Gagal memuat modul')
         return res.text()

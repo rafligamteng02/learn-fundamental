@@ -6,7 +6,7 @@ export default function Cheatsheet() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/modules/08-quick-cheatsheet.md')
+    fetch(`${import.meta.env.BASE_URL}modules/08-quick-cheatsheet.md`)
       .then(res => res.text())
       .then(text => {
         setContent(text)
