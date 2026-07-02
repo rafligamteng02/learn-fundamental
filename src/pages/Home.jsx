@@ -4,7 +4,8 @@ import { modules } from '../modules'
 import {
   BookOpenIcon, StarIcon, CheckIcon, CircleIcon,
   GlobeIcon, CodeIcon, AtomIcon, ServerIcon,
-  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon
+  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon,
+  TerminalIcon
 } from '../components/Icons'
 
 const iconMap = {
@@ -16,6 +17,7 @@ const iconMap = {
   cpu: CpuIcon,
   link: LinkIcon,
   file: FileTextIcon,
+  terminal: TerminalIcon,
 }
 
 export default function Home() {
@@ -74,7 +76,7 @@ export default function Home() {
           return (
             <Link
               key={m.id}
-              to={`/module/${m.id}`}
+              to={m.route || `/module/${m.id}`}
               className={`module-card ${done ? 'completed' : ''}`}
             >
               <div className="module-card-icon">

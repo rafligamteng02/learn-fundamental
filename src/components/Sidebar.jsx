@@ -4,7 +4,8 @@ import { modules } from '../modules'
 import {
   HomeIcon, SunIcon, MoonIcon, CheckIcon, CloseIcon,
   GlobeIcon, CodeIcon, AtomIcon, ServerIcon,
-  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon, BookOpenIcon
+  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon, BookOpenIcon,
+  TerminalIcon
 } from './Icons'
 
 const iconMap = {
@@ -16,6 +17,7 @@ const iconMap = {
   cpu: CpuIcon,
   link: LinkIcon,
   file: FileTextIcon,
+  terminal: TerminalIcon,
 }
 
 export default function Sidebar({ isOpen, onToggle, darkMode, onToggleDark }) {
@@ -45,7 +47,7 @@ export default function Sidebar({ isOpen, onToggle, darkMode, onToggleDark }) {
           return (
             <NavLink
               key={m.id}
-              to={`/module/${m.id}`}
+              to={m.route || `/module/${m.id}`}
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
             >
               {IconComp && <IconComp size={20} />}

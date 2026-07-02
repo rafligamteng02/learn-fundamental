@@ -61,5 +61,13 @@ export const modules = [
     icon: 'code',
     file: '09-live-coding.md',
     desc: 'Soal API & Function — latihan live interview'
+  },
+  {
+    id: '10',
+    title: 'Coding Praktik',
+    icon: 'terminal',
+    file: null,
+    route: '/live-coding',
+    desc: 'Sesi live coding interaktif — tulis jawaban langsung'
   }
 ]

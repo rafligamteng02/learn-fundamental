@@ -6,6 +6,7 @@ import { MenuIcon } from './components/Icons'
 import Home from './pages/Home'
 import ModulePage from './pages/ModulePage'
 import Cheatsheet from './pages/Cheatsheet'
+import LiveCoding from './pages/LiveCoding'
 import './App.css'
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/module/:id" element={<ModulePage />} />
               <Route path="/cheatsheet" element={<Cheatsheet />} />
+              <Route path="/live-coding" element={<LiveCoding />} />
             </Routes>
           </main>
         </div>

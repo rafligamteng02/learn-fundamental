@@ -9,7 +9,8 @@ import { useProgress } from '../context/ProgressContext'
 import { ChevronLeftIcon, ChevronRightIcon, CheckIcon } from '../components/Icons'
 import {
   GlobeIcon, CodeIcon, AtomIcon, ServerIcon,
-  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon
+  DatabaseIcon, CpuIcon, LinkIcon, FileTextIcon,
+  TerminalIcon
 } from '../components/Icons'
 import QAItem from '../components/QAItem'
 
@@ -22,6 +23,7 @@ const iconMap = {
   cpu: CpuIcon,
   link: LinkIcon,
   file: FileTextIcon,
+  terminal: TerminalIcon,
 }
 
 function extractQA(markdown) {
